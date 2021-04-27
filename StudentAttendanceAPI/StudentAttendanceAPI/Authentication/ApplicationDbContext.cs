@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using StudentAttendanceAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace StudentAttendanceAPI.Authentication
         {
 
         }
+
+        public virtual DbSet<TbClass> TbClass { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
