@@ -17,6 +17,7 @@ namespace StudentAttendanceAPI.Authentication
 
         public virtual DbSet<TbClass> TbClass { get; set; }
         public virtual DbSet<TbStudent> TbStudent { get; set; }
+        public virtual DbSet<TbStudentRegister> TbStudentRegisters { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

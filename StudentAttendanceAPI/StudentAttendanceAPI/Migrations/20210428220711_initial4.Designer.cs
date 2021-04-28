@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentAttendanceAPI.Authentication;
 
 namespace StudentAttendanceAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210428220711_initial4")]
+    partial class initial4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -270,26 +272,6 @@ namespace StudentAttendanceAPI.Migrations
                     b.ToTable("TbStudent");
                 });
 
-            modelBuilder.Entity("StudentAttendanceAPI.Models.TbStudentRegister", b =>
-                {
-                    b.Property<int>("StudentRegisterId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("TbStudentStudentId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("present")
-                        .HasColumnType("bit");
-
-                    b.HasKey("StudentRegisterId");
-
-                    b.HasIndex("TbStudentStudentId");
-
-                    b.ToTable("TbStudentRegisters");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -359,15 +341,6 @@ namespace StudentAttendanceAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("TbClass");
-                });
-
-            modelBuilder.Entity("StudentAttendanceAPI.Models.TbStudentRegister", b =>
-                {
-                    b.HasOne("StudentAttendanceAPI.Models.TbStudent", "TbStudent")
-                        .WithMany()
-                        .HasForeignKey("TbStudentStudentId");
-
-                    b.Navigation("TbStudent");
                 });
 #pragma warning restore 612, 618
         }

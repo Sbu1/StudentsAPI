@@ -23,9 +23,6 @@ namespace StudentAttendanceAPI.Models
         [Column(TypeName = "nvarchar(255)")]
         public string ParentEmail { get; set; }
 
-        [ForeignKey("TbClass")]
-        public virtual int ClassId { get; set; }
-
         public virtual TbClass TbClass { get; set; }
     }
 }
