@@ -11,9 +11,16 @@ namespace StudentAttendanceAPI.Services
     public class ClassService : IClassService
     {
         private readonly ApplicationDbContext _dbContext;
-        public Task<Class> AddClass(Class classModel)
+        public ClassService(ApplicationDbContext applicationDbContext)
         {
-            return Task.FromResult(new Class { });
+            _dbContext = applicationDbContext;
+        }
+        public async Task<int> AddClassAsync(ClassModel classModel)
+        {
+            await _dbContext.AddAsync(classModel);
+            var result = await _dbContext.SaveChangesAsync();
+
+            return result;
         }
     }
 }

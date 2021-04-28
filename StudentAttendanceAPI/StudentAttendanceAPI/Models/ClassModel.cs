@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace StudentAttendanceAPI.Models
 {
-    public class Class
+    public class ClassModel
     {
         public string ClassName { get; set; }
     }
