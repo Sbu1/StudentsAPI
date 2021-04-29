@@ -10,8 +10,8 @@ using StudentAttendanceAPI.Authentication;
 namespace StudentAttendanceAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210429193754_initmigration2")]
-    partial class initmigration2
+    [Migration("20210429230237_mymigration")]
+    partial class mymigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -272,25 +272,27 @@ namespace StudentAttendanceAPI.Migrations
                     b.ToTable("TbStudent");
                 });
 
-            modelBuilder.Entity("StudentAttendanceAPI.Models.TbStudentRegister", b =>
+            modelBuilder.Entity("StudentAttendanceAPI.Models.TbStudentAttendance", b =>
                 {
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Date")
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<bool>("Present")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("StudentRegisterId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.HasKey("StudentId", "Date");
+                    b.Property<bool>("Attended")
+                        .HasColumnType("bit");
 
-                    b.ToTable("TbStudentRegisters");
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("TbStudentAttendance");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -364,7 +366,7 @@ namespace StudentAttendanceAPI.Migrations
                     b.Navigation("TbClass");
                 });
 
-            modelBuilder.Entity("StudentAttendanceAPI.Models.TbStudentRegister", b =>
+            modelBuilder.Entity("StudentAttendanceAPI.Models.TbStudentAttendance", b =>
                 {
                     b.HasOne("StudentAttendanceAPI.Models.TbStudent", "TbStudent")
                         .WithMany()

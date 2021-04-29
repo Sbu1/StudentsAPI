@@ -17,13 +17,12 @@ namespace StudentAttendanceAPI.Authentication
 
         public virtual DbSet<TbClass> TbClass { get; set; }
         public virtual DbSet<TbStudent> TbStudent { get; set; }
-        public virtual DbSet<TbStudentRegister> TbStudentRegisters { get; set; }
+        public virtual DbSet<TbStudentAttendance> TbStudentAttendance { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<TbStudentRegister>().HasKey(t => new { t.StudentId, t.Date });
         }
     }
 }

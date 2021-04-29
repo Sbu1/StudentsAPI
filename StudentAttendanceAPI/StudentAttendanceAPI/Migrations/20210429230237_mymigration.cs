@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace StudentAttendanceAPI.Migrations
 {
-    public partial class initmigration1 : Migration
+    public partial class mymigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -198,20 +198,20 @@ namespace StudentAttendanceAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TbStudentRegisters",
+                name: "TbStudentAttendance",
                 columns: table => new
                 {
-                    StudentRegisterId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Present = table.Column<bool>(type: "bit", nullable: false),
-                    Date = table.Column<string>(type: "nvarchar(255)", nullable: false),
+                    Attended = table.Column<bool>(type: "bit", nullable: false),
+                    Date = table.Column<DateTime>(type: "date", nullable: false),
                     StudentId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TbStudentRegisters", x => x.StudentRegisterId);
+                    table.PrimaryKey("PK_TbStudentAttendance", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TbStudentRegisters_TbStudent_StudentId",
+                        name: "FK_TbStudentAttendance_TbStudent_StudentId",
                         column: x => x.StudentId,
                         principalTable: "TbStudent",
                         principalColumn: "StudentId",
@@ -268,8 +268,8 @@ namespace StudentAttendanceAPI.Migrations
                 column: "ClassId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TbStudentRegisters_StudentId",
-                table: "TbStudentRegisters",
+                name: "IX_TbStudentAttendance_StudentId",
+                table: "TbStudentAttendance",
                 column: "StudentId");
         }
 
@@ -291,7 +291,7 @@ namespace StudentAttendanceAPI.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "TbStudentRegisters");
+                name: "TbStudentAttendance");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

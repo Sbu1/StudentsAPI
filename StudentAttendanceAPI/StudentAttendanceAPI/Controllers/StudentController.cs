@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StudentAttendanceAPI.Interface;
@@ -11,6 +12,7 @@ namespace StudentAttendanceAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class StudentController : ControllerBase
     {
         private readonly IStudentService _studentService;
@@ -19,7 +21,7 @@ namespace StudentAttendanceAPI.Controllers
         {
             _studentService = studentService;
         }
-        // GET: api/Student
+
         [HttpGet]
         [HttpGet("{classId}", Name = "GetStudents")]
         public async Task<ActionResult<StudentModel>> GetStudents(int classId)
@@ -27,7 +29,6 @@ namespace StudentAttendanceAPI.Controllers
             return Ok(await _studentService.GetStudentsAsync(classId));
         }
 
-        // GET: api/Student/5
         [HttpGet("{id}", Name = "GetStudent")]
         public async Task<ActionResult<StudentModel>> GetStudent(int studentId)
         {
@@ -46,12 +47,6 @@ namespace StudentAttendanceAPI.Controllers
         public async Task<ActionResult<int>> UpdateStudent([FromBody] StudentModel studentModel)
         {
             return Ok(await _studentService.UpdateStudentAsync(studentModel));
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

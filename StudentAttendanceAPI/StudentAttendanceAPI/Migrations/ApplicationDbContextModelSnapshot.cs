@@ -270,30 +270,27 @@ namespace StudentAttendanceAPI.Migrations
                     b.ToTable("TbStudent");
                 });
 
-            modelBuilder.Entity("StudentAttendanceAPI.Models.TbStudentRegister", b =>
+            modelBuilder.Entity("StudentAttendanceAPI.Models.TbStudentAttendance", b =>
                 {
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Date")
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<int>("ClassId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Present")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("StudentRegisterId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.HasKey("StudentId", "Date");
+                    b.Property<bool>("Attended")
+                        .HasColumnType("bit");
 
-                    b.HasIndex("ClassId");
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("date");
 
-                    b.ToTable("TbStudentRegisters");
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("TbStudentAttendance");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -367,21 +364,13 @@ namespace StudentAttendanceAPI.Migrations
                     b.Navigation("TbClass");
                 });
 
-            modelBuilder.Entity("StudentAttendanceAPI.Models.TbStudentRegister", b =>
+            modelBuilder.Entity("StudentAttendanceAPI.Models.TbStudentAttendance", b =>
                 {
-                    b.HasOne("StudentAttendanceAPI.Models.TbClass", "TbClass")
-                        .WithMany()
-                        .HasForeignKey("ClassId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("StudentAttendanceAPI.Models.TbStudent", "TbStudent")
                         .WithMany()
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("TbClass");
 
                     b.Navigation("TbStudent");
                 });

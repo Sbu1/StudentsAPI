@@ -13,6 +13,7 @@ namespace StudentAttendanceAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class ClassController : ControllerBase
     {
         private readonly IClassService _classService;
@@ -23,21 +24,13 @@ namespace StudentAttendanceAPI.Controllers
         }
         // GET: api/Class
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<ClassModel>> Get()
         {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET: api/Class/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
+            return Ok(await _classService.GetClasses(HttpContext.User.Identity.Name));
         }
 
         // POST: api/Class
         [HttpPost]
-        [Authorize(AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> Post([FromBody] ClassModel classModel)
         {
             var result = await _classService.AddClassAsync(classModel, HttpContext.User.Identity.Name);

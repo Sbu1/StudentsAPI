@@ -29,6 +29,24 @@ namespace StudentAttendanceAPI.Services
             return result;
         }
 
+        public async Task<List<ClassModel>> GetClasses(string username)
+        {
+            var userid = await getUserIdAsync(username);
+            var classes = await _dbContext.TbClass.Where(x => x.UserId == userid).ToListAsync();
+
+            var classesModel = new List<ClassModel>();
+
+            foreach (var clas in classes)
+            {
+                classesModel.Add(new ClassModel
+                {
+                    ClassName = clas.ClassName
+                });
+            }
+            return classesModel;
+
+        }
+
         private async Task<string> getUserIdAsync(string username)
         {
             var user = await _dbContext.Users.FirstOrDefaultAsync(x => x.UserName == username);

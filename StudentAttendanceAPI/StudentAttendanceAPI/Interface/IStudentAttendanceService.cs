@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 
 namespace StudentAttendanceAPI.Interface
 {
-    public interface IStudentRegister
+    public interface IStudentAttendanceService
     {
         Task<int> AddStudentsRegister(List<StudentRegisterModel> studentRegisterModel);
 
         Task<int> UpdateStudentRegister(int studentRegisterId, List<StudentRegisterModel> studentRegisterModel);
+
+        Task<List<StudentAttendanceReportModel>> GetReportAsync(int classId, DateTime date);
+
+        Task<List<StudentAttendanceReportModel>> GetReportAsync(int classId, DateTime startdate, DateTime endDate);
 
     }
 }

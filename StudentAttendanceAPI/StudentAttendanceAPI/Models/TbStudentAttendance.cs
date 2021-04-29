@@ -7,22 +7,21 @@ using System.Threading.Tasks;
 
 namespace StudentAttendanceAPI.Models
 {
-    public class TbStudentRegister
+    public class TbStudentAttendance
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int StudentRegisterId { get; set; }
+        public int Id { get; set; }
         [Required]
-        public bool Present { get; set; }
+        public bool Attended { get; set; }
 
         [Required]
-        [Column(TypeName = "nvarchar(255)")]
+        [Column(TypeName = "date")]
         public DateTime Date { get; set; }
 
         [ForeignKey("TbStudent")]
         public virtual int StudentId { get; set; }
 
-        public virtual TbClass TbClass { get; set; }
         public virtual TbStudent TbStudent { get; set; }
     }
 }
