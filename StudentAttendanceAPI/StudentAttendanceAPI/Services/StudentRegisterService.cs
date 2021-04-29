@@ -5,12 +5,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace StudentAttendanceAPI.Services
 {
     public class StudentRegisterService : IStudentRegister
     {
-        private readonly ApplicationDbContext applicationDbContext;
+        private readonly ApplicationDbContext _applicationDbContext;
+        public StudentRegisterService(ApplicationDbContext applicationDbContext)
+        {
+            _applicationDbContext = applicationDbContext;
+        }
         public async Task<int> AddStudentsRegister(List<StudentRegisterModel> studentRegisterModel)
         {
             foreach (var student in studentRegisterModel)
@@ -18,16 +23,27 @@ namespace StudentAttendanceAPI.Services
                await AddStudent(student);
             }
 
-            return await applicationDbContext.SaveChangesAsync();
+            return await _applicationDbContext.SaveChangesAsync();
+        }
+
+        public async Task<int> UpdateStudentRegister(int studentRegisterId, List<StudentRegisterModel> studentRegisterModel)
+        {
+            var register = await _applicationDbContext.TbStudentRegisters.Where (x => x.StudentRegisterId == studentRegisterId).ToListAsync();
+
+            foreach (var student in studentRegisterModel)
+            {
+
+            }
+
+            return await Task.FromResult(0);
         }
 
         private async Task AddStudent(StudentRegisterModel studentRegisterModel)
         {
-            var student = await applicationDbContext.TbStudent.FindAsync(studentRegisterModel.StudentId);
-            await applicationDbContext.AddAsync(new TbStudentRegister
+            await _applicationDbContext.AddAsync(new TbStudentRegister
             {
-                present = studentRegisterModel.Present,
-                TbStudent = student
+                Present = studentRegisterModel.Present,
+                StudentId = studentRegisterModel.StudentId
             });
         }
     }

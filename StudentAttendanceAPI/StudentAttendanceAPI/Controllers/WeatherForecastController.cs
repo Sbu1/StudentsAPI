@@ -9,7 +9,7 @@ using StudentAttendanceAPI.Authentication;
 
 namespace StudentAttendanceAPI.Controllers
 {
-    [Authorize(Roles = UserRoles.Admin)]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase

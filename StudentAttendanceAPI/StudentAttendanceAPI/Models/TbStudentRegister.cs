@@ -13,10 +13,16 @@ namespace StudentAttendanceAPI.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int StudentRegisterId { get; set; }
         [Required]
-        public bool present { get; set; }
+        public bool Present { get; set; }
+
+        [Required]
+        [Column(TypeName = "nvarchar(255)")]
+        public DateTime Date { get; set; }
 
         [ForeignKey("TbStudent")]
         public virtual int StudentId { get; set; }
+
+        public virtual TbClass TbClass { get; set; }
         public virtual TbStudent TbStudent { get; set; }
     }
 }

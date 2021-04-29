@@ -22,6 +22,8 @@ namespace StudentAttendanceAPI.Authentication
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<TbStudentRegister>().HasKey(t => new { t.StudentId, t.Date });
         }
     }
 }

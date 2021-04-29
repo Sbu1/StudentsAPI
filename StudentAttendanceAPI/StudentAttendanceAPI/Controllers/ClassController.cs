@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StudentAttendanceAPI.Authentication;
@@ -36,9 +37,10 @@ namespace StudentAttendanceAPI.Controllers
 
         // POST: api/Class
         [HttpPost]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> Post([FromBody] ClassModel classModel)
         {
-            var result = await _classService.AddClassAsync(classModel);
+            var result = await _classService.AddClassAsync(classModel, HttpContext.User.Identity.Name);
             return Ok(result);
         }
 

@@ -10,8 +10,8 @@ using StudentAttendanceAPI.Authentication;
 namespace StudentAttendanceAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210428220835_initial5")]
-    partial class initial5
+    [Migration("20210429195559_initmigration3")]
+    partial class initmigration3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -227,12 +227,12 @@ namespace StudentAttendanceAPI.Migrations
                     b.Property<string>("ClassName")
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<string>("UserName")
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ClassId");
 
-                    b.HasIndex("UserName");
+                    b.HasIndex("UserId");
 
                     b.ToTable("TbClass");
                 });
@@ -259,8 +259,8 @@ namespace StudentAttendanceAPI.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("ParentCellNumber")
-                        .HasColumnType("int");
+                    b.Property<string>("ParentCellNumber")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ParentEmail")
                         .HasColumnType("nvarchar(255)");
@@ -274,20 +274,26 @@ namespace StudentAttendanceAPI.Migrations
 
             modelBuilder.Entity("StudentAttendanceAPI.Models.TbStudentRegister", b =>
                 {
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Date")
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<int>("ClassId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Present")
+                        .HasColumnType("bit");
+
                     b.Property<int>("StudentRegisterId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("TbStudentStudentId")
-                        .HasColumnType("int");
+                    b.HasKey("StudentId", "Date");
 
-                    b.Property<bool>("present")
-                        .HasColumnType("bit");
-
-                    b.HasKey("StudentRegisterId");
-
-                    b.HasIndex("TbStudentStudentId");
+                    b.HasIndex("ClassId");
 
                     b.ToTable("TbStudentRegisters");
                 });
@@ -347,7 +353,7 @@ namespace StudentAttendanceAPI.Migrations
                 {
                     b.HasOne("StudentAttendanceAPI.Authentication.ApplicationUser", "ApplicationUser")
                         .WithMany()
-                        .HasForeignKey("UserName");
+                        .HasForeignKey("UserId");
 
                     b.Navigation("ApplicationUser");
                 });
@@ -365,9 +371,19 @@ namespace StudentAttendanceAPI.Migrations
 
             modelBuilder.Entity("StudentAttendanceAPI.Models.TbStudentRegister", b =>
                 {
+                    b.HasOne("StudentAttendanceAPI.Models.TbClass", "TbClass")
+                        .WithMany()
+                        .HasForeignKey("ClassId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("StudentAttendanceAPI.Models.TbStudent", "TbStudent")
                         .WithMany()
-                        .HasForeignKey("TbStudentStudentId");
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TbClass");
 
                     b.Navigation("TbStudent");
                 });

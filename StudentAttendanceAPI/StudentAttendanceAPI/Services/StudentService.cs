@@ -12,9 +12,27 @@ namespace StudentAttendanceAPI.Services
     public class StudentService : IStudentService
     {
         private readonly ApplicationDbContext _dbContext;
+
+        public StudentService(ApplicationDbContext applicationDbContext)
+        {
+            _dbContext = applicationDbContext;
+        }
         public async Task<int> AddStudentAsync(StudentModel studentModel)
         {
-            await _dbContext.AddAsync(studentModel);
+            var student = new TbStudent
+            {
+                ClassId = studentModel.classId,
+                FirstName = studentModel.FirstName,
+                Gender = studentModel.Gender,
+                Grade = studentModel.Grade,
+                LastName = studentModel.LastName,
+                ParentCellNumber = studentModel.ParentPhoneNumber,
+                ParentEmail = studentModel.ParentEmail
+            };
+
+
+            await _dbContext.TbStudent.AddAsync(student);
+
             return await _dbContext.SaveChangesAsync();
         }
 
@@ -59,6 +77,13 @@ namespace StudentAttendanceAPI.Services
         public async Task<int> UpdateStudentAsync(StudentModel studentModel)
         {
             var result = await _dbContext.TbStudent.FindAsync(studentModel.StudentId);
+
+            result.FirstName = studentModel.FirstName;
+            result.LastName = studentModel.LastName;
+            result.ParentCellNumber = studentModel.ParentPhoneNumber;
+            result.ParentEmail = studentModel.ParentEmail;
+            result.Grade = studentModel.Grade;
+            result.ClassId = studentModel.classId;
 
             _dbContext.Update(result);
             return await _dbContext.SaveChangesAsync();

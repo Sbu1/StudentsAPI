@@ -8,6 +8,6 @@ namespace StudentAttendanceAPI.Interface
 {
     public interface IClassService
     {
-        Task<int> AddClassAsync(ClassModel classModel);
+        Task<int> AddClassAsync(ClassModel classModel, string username);
     }
 }

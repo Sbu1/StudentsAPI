@@ -20,7 +20,7 @@ namespace StudentAttendanceAPI.Models
         [Column(TypeName = "nvarchar(6)")]
         public string Gender { get; set; }
         [Required]
-        public int ParentPhoneNumber { get; set; }
+        public string ParentPhoneNumber { get; set; }
         [Required]
         [Column(TypeName = "nvarchar(255)")]
         [DataType(DataType.EmailAddress)]
@@ -29,5 +29,7 @@ namespace StudentAttendanceAPI.Models
         [Required]
         [Range(1, 12)]
         public int Grade { get; set; }
+        [Required]
+        public int classId { get; set; }
     }
 }

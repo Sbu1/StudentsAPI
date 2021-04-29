@@ -10,8 +10,8 @@ using StudentAttendanceAPI.Authentication;
 namespace StudentAttendanceAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210427205633_initial1")]
-    partial class initial1
+    [Migration("20210429193641_initmigration1")]
+    partial class initmigration1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -225,11 +225,75 @@ namespace StudentAttendanceAPI.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ClassName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ClassId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("TbClass");
+                });
+
+            modelBuilder.Entity("StudentAttendanceAPI.Models.TbStudent", b =>
+                {
+                    b.Property<int>("StudentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ClassId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(6)");
+
+                    b.Property<int>("Grade")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("ParentCellNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ParentEmail")
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("StudentId");
+
+                    b.HasIndex("ClassId");
+
+                    b.ToTable("TbStudent");
+                });
+
+            modelBuilder.Entity("StudentAttendanceAPI.Models.TbStudentRegister", b =>
+                {
+                    b.Property<int>("StudentRegisterId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Date")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<bool>("Present")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("StudentRegisterId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("TbStudentRegisters");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -281,6 +345,37 @@ namespace StudentAttendanceAPI.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("StudentAttendanceAPI.Models.TbClass", b =>
+                {
+                    b.HasOne("StudentAttendanceAPI.Authentication.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("ApplicationUser");
+                });
+
+            modelBuilder.Entity("StudentAttendanceAPI.Models.TbStudent", b =>
+                {
+                    b.HasOne("StudentAttendanceAPI.Models.TbClass", "TbClass")
+                        .WithMany()
+                        .HasForeignKey("ClassId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TbClass");
+                });
+
+            modelBuilder.Entity("StudentAttendanceAPI.Models.TbStudentRegister", b =>
+                {
+                    b.HasOne("StudentAttendanceAPI.Models.TbStudent", "TbStudent")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TbStudent");
                 });
 #pragma warning restore 612, 618
         }

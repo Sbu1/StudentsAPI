@@ -10,5 +10,7 @@ namespace StudentAttendanceAPI.Interface
     {
         Task<int> AddStudentsRegister(List<StudentRegisterModel> studentRegisterModel);
 
+        Task<int> UpdateStudentRegister(int studentRegisterId, List<StudentRegisterModel> studentRegisterModel);
+
     }
 }

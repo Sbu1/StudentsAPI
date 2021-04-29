@@ -16,6 +16,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using StudentAttendanceAPI.Authentication;
+using StudentAttendanceAPI.Interface;
+using StudentAttendanceAPI.Services;
 
 namespace StudentAttendanceAPI
 {
@@ -35,10 +37,7 @@ namespace StudentAttendanceAPI
             //Entity Framework
             services.AddDbContext<ApplicationDbContext>(option => option.UseSqlServer(Configuration.GetConnectionString("ConString")));
 
-            //For Identity
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+
 
             //adding authentication
             services.AddAuthentication(option => {
@@ -56,12 +55,21 @@ namespace StudentAttendanceAPI
                 {
                     ValidateIssuer = true,
                     ValidateAudience = true,
-                    ValidAudience = Configuration["JWT:ValiAudience"],
+                    ValidAudience = Configuration["JWT:ValidAudience"],
                     ValidIssuer = Configuration["JWT:ValidIssuer"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
                 };
             });
 
+            //For Identity
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+
+            services.AddTransient<IClassService, ClassService>();
+            services.AddTransient<IStudentService, StudentService>();
+            services.AddTransient<IStudentRegister, StudentRegisterService>();
 
         }
 
@@ -75,8 +83,8 @@ namespace StudentAttendanceAPI
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

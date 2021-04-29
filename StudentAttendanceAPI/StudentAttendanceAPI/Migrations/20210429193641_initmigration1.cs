@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace StudentAttendanceAPI.Migrations
 {
-    public partial class initial : Migration
+    public partial class initmigration1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -152,6 +152,72 @@ namespace StudentAttendanceAPI.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "TbClass",
+                columns: table => new
+                {
+                    ClassId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ClassName = table.Column<string>(type: "nvarchar(20)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TbClass", x => x.ClassId);
+                    table.ForeignKey(
+                        name: "FK_TbClass_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TbStudent",
+                columns: table => new
+                {
+                    StudentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(50)", nullable: true),
+                    Gender = table.Column<string>(type: "nvarchar(6)", nullable: true),
+                    Grade = table.Column<int>(type: "int", nullable: false),
+                    ParentCellNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ParentEmail = table.Column<string>(type: "nvarchar(255)", nullable: true),
+                    ClassId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TbStudent", x => x.StudentId);
+                    table.ForeignKey(
+                        name: "FK_TbStudent_TbClass_ClassId",
+                        column: x => x.ClassId,
+                        principalTable: "TbClass",
+                        principalColumn: "ClassId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TbStudentRegisters",
+                columns: table => new
+                {
+                    StudentRegisterId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Present = table.Column<bool>(type: "bit", nullable: false),
+                    Date = table.Column<string>(type: "nvarchar(255)", nullable: false),
+                    StudentId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TbStudentRegisters", x => x.StudentRegisterId);
+                    table.ForeignKey(
+                        name: "FK_TbStudentRegisters_TbStudent_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "TbStudent",
+                        principalColumn: "StudentId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -190,6 +256,21 @@ namespace StudentAttendanceAPI.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TbClass_UserId",
+                table: "TbClass",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TbStudent_ClassId",
+                table: "TbStudent",
+                column: "ClassId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TbStudentRegisters_StudentId",
+                table: "TbStudentRegisters",
+                column: "StudentId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -210,7 +291,16 @@ namespace StudentAttendanceAPI.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "TbStudentRegisters");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "TbStudent");
+
+            migrationBuilder.DropTable(
+                name: "TbClass");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

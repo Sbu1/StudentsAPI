@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace StudentAttendanceAPI.Services
 {
@@ -15,12 +16,23 @@ namespace StudentAttendanceAPI.Services
         {
             _dbContext = applicationDbContext;
         }
-        public async Task<int> AddClassAsync(ClassModel classModel)
+        public async Task<int> AddClassAsync(ClassModel classModel, string username)
         {
-            await _dbContext.AddAsync(classModel);
+            await _dbContext.TbClass.AddAsync(new TbClass
+            {
+                ClassName = classModel.ClassName,
+                UserId = await getUserIdAsync(username)
+            });
+
             var result = await _dbContext.SaveChangesAsync();
 
             return result;
+        }
+
+        private async Task<string> getUserIdAsync(string username)
+        {
+            var user = await _dbContext.Users.FirstOrDefaultAsync(x => x.UserName == username);
+            return user.Id;
         }
     }
 }

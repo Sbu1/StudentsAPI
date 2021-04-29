@@ -16,8 +16,9 @@ namespace StudentAttendanceAPI.Models
         [Column(TypeName = "nvarchar(20)")]
         public string ClassName { get; set; }
 
+        [Column(TypeName = "nvarchar(450)")]
         [ForeignKey("ApplicationUser")]
-        public virtual string UserName { get; set; }
+        public virtual string UserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }
