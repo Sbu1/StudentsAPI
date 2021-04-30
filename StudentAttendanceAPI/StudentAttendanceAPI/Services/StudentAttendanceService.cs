@@ -28,8 +28,6 @@ namespace StudentAttendanceAPI.Services
 
         public async Task<List<StudentAttendanceReportModel>> GetReportAsync(int classId, DateTime date)
         {
-            var classModel = await _applicationDbContext.TbClass.FindAsync(classId);
-
             var reports = await _applicationDbContext.TbStudentAttendance.Where(x=>x.Date == date.Date).Include(x => x.TbStudent).ThenInclude(x => x.TbClass).ToListAsync();
             var classReport = reports.Where(x => x.TbStudent.ClassId == classId);
 
@@ -39,21 +37,35 @@ namespace StudentAttendanceAPI.Services
             {
                 attendancereport.Add(new StudentAttendanceReportModel
                 {
-                    ClassName = classModel.ClassName,
+                    ClassName = report.TbStudent.TbClass.ClassName,
                     Date = report.Date,
                     Grade = report.TbStudent.Grade,
                     Attendend = report.Attended,
                     StudentName = string.Concat(report.TbStudent.FirstName, " ", report.TbStudent.LastName)
                 });
             }
-
-
             return attendancereport;
         }
 
-        public Task<List<StudentAttendanceReportModel>> GetReportAsync(int classId, DateTime startdate, DateTime endDate)
+        public async Task<List<StudentAttendanceReportModel>> GetReportAsync(int classId, DateTime startdate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            var reports = await _applicationDbContext.TbStudentAttendance.Where(x => x.Date >= startdate.Date && x.Date <= endDate).Include(x => x.TbStudent).ThenInclude(x => x.TbClass).ToListAsync();
+            var classReport = reports.Where(x => x.TbStudent.ClassId == classId);
+
+            var attendancereport = new List<StudentAttendanceReportModel>();
+
+            foreach (var report in classReport)
+            {
+                attendancereport.Add(new StudentAttendanceReportModel
+                {
+                    ClassName = report.TbStudent.TbClass.ClassName,
+                    Date = report.Date,
+                    Grade = report.TbStudent.Grade,
+                    Attendend = report.Attended,
+                    StudentName = string.Concat(report.TbStudent.FirstName, " ", report.TbStudent.LastName)
+                });
+            }
+            return attendancereport;
         }
 
         public async Task<int> UpdateStudentRegister(int studentRegisterId, List<StudentRegisterModel> studentRegisterModel)

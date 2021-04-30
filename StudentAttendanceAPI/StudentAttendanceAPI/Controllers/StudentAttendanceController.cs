@@ -28,10 +28,16 @@ namespace StudentAttendanceAPI.Controllers
             return await _studentRegister.AddStudentsRegister(studentRegisterModel);
         }
 
-        [HttpGet("{classId}")]
-        public async Task<List<StudentAttendanceReportModel>> Get(int classId)
+        [HttpGet("{classId}/{date}")]
+        public async Task<List<StudentAttendanceReportModel>> Get(int classId, DateTime date)
         {
-            return await _studentRegister.GetReportAsync(classId, DateTime.Now);
+            return await _studentRegister.GetReportAsync(classId, date);
+        }
+
+        [HttpGet("{classId}/{startDate}/{endDate}")]
+        public async Task<List<StudentAttendanceReportModel>> Get(int classId, DateTime startDate, DateTime endDate)
+        {
+            return await _studentRegister.GetReportAsync(classId, startDate, endDate);
         }
     }
 }
