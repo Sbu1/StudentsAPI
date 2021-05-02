@@ -70,6 +70,7 @@ namespace StudentAttendanceAPI
             services.AddTransient<IClassService, ClassService>();
             services.AddTransient<IStudentService, StudentService>();
             services.AddTransient<IStudentAttendanceService, StudentAttendanceService>();
+            services.AddTransient<IAuthService, authService>();
 
         }
 
