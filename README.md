@@ -27,9 +27,9 @@ A list of technologies used within the project:
 You need to create a database, update the connection string then run the API.
 ***
 1. git clone https://github.com/Sbu1/StudentsAPI.git using git or download the project direct https://github.com/Sbu1/StudentsAPI
-2. Execute studentAttendanceDBscript in sql server which is in the root folder.
+2. Execute studentAttendanceDBscript in sql server which is in the project root folder.
 3. Open the project using visual studio.
-4. If you are using local sql server you don't need to update your connection string but if you using testing environment please change the server in the connection string to point to your testing server.
+4. If you are using local sql server you don't need to update your connection string but if you using testing environment please change the server name in the connection string to point to your testing server.
 5. Run the project: You should see swagger UI.
 
 ## Collaboration
@@ -37,4 +37,8 @@ You need to create a database, update the connection string then run the API.
 To collaborate you need to send an email to sbuddaz@gmail.com stating why you need to collaborate with us and how you will benefits.
 
 ## FAQs
+
+## High Level Architecture
+![image](https://user-images.githubusercontent.com/47100836/116928600-96fc8680-ac5d-11eb-9c3c-277857a92e26.png)
+
 
