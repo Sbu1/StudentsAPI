@@ -37,11 +37,11 @@ namespace StudentAttendanceAPI.Controllers
         [HttpPost]
         [Route("Register")]
         [Authorize(AuthenticationSchemes = "Bearer")]
-        public async Task<IActionResult> Register([FromBody] RegisterModel registerModel)
+        public async Task<Response> Register([FromBody] RegisterModel registerModel)
         {
-            var result = await _authService.RegisterAsync(registerModel, false); //TODO TESTING
+            var result = await _authService.RegisterAsync(registerModel, false);
 
-            return Ok(new Response { Status = "Success", Message = "USer created successful" });
+            return result;
         }
 
         [HttpPost]
@@ -84,11 +84,12 @@ namespace StudentAttendanceAPI.Controllers
 
         [HttpPost]
         [Route("RegisterAdmin")]
-        public async Task<IActionResult> RegisterAdminAsync([FromBody] RegisterModel registerModel)
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public async Task<Response> RegisterAdminAsync([FromBody] RegisterModel registerModel)
         {
-            var result = await _authService.RegisterAsync(registerModel, true); //TODO handle response
+            var result = await _authService.RegisterAsync(registerModel, true); 
 
-            return Ok(new Response { Status = "Success", Message = "USer created successful" });
+            return result;
         }
     }
 }

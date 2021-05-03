@@ -71,6 +71,15 @@ namespace StudentAttendanceAPI
             services.AddTransient<IStudentService, StudentService>();
             services.AddTransient<IStudentAttendanceService, StudentAttendanceService>();
             services.AddTransient<IAuthService, authService>();
+            services.AddSwaggerGen(c=>
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Student Attendance API",
+                    Description = "An API for managing students attendance"
+                });
+            });
 
         }
 
@@ -91,6 +100,12 @@ namespace StudentAttendanceAPI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Stident Attendance V1");
             });
         }
     }

@@ -26,7 +26,7 @@ namespace StudentAttendanceAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<ClassModel>> Get()
         {
-            return Ok(await _classService.GetClasses(HttpContext.User.Identity.Name));
+            return Ok(await _classService.GetClassesAsync(HttpContext.User.Identity.Name));
         }
 
         // POST: api/Class

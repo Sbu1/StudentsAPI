@@ -16,11 +16,11 @@ namespace StudentAttendanceAPI.Services
             _userManager = userManager;
         }
 
-        public async Task<int> RegisterAsync(RegisterModel registerModel, bool  admin)
+        public async Task<Response> RegisterAsync(RegisterModel registerModel, bool  admin)
         {
             var userExist = await _userManager.FindByNameAsync(registerModel.UserName);
             if (userExist != null)
-                return -1;
+                return new Response { StatusCode = 500, Message = "User already exist" };
 
             ApplicationUser user = new ApplicationUser()
             {
@@ -32,10 +32,10 @@ namespace StudentAttendanceAPI.Services
             var result = await _userManager.CreateAsync(user, registerModel.Password);
             if (!result.Succeeded)
             {
-                return 0;
+                return new Response { StatusCode = 500, Message = "User creation failed" };
             }
 
-            return 1;
+            return new Response { StatusCode = 200, Message = "User created successful" };
         }
 
     }

@@ -9,6 +9,6 @@ namespace StudentAttendanceAPI.Interface
     public interface IClassService
     {
         Task<int> AddClassAsync(ClassModel classModel, string username);
-        Task<List<ClassModel>> GetClasses(string username);
+        Task<List<ClassModel>> GetClassesAsync(string username);
     }
 }

@@ -29,7 +29,7 @@ namespace StudentAttendanceAPI.Services
             return result;
         }
 
-        public async Task<List<ClassModel>> GetClasses(string username)
+        public async Task<List<ClassModel>> GetClassesAsync(string username)
         {
             var userid = await getUserIdAsync(username);
             var classes = await _dbContext.TbClass.Where(x => x.UserId == userid).ToListAsync();
@@ -47,9 +47,12 @@ namespace StudentAttendanceAPI.Services
 
         }
 
-        private async Task<string> getUserIdAsync(string username)
+        public async Task<string> getUserIdAsync(string username)
         {
             var user = await _dbContext.Users.FirstOrDefaultAsync(x => x.UserName == username);
+
+            if (user == null)
+                throw new ArgumentException("Seems like you are logged out. Please login again");
             return user.Id;
         }
     }

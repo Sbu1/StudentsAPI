@@ -8,6 +8,6 @@ namespace StudentAttendanceAPI.Interface
 {
     public interface IAuthService
     {
-        Task<int> RegisterAsync(RegisterModel registerModel, bool admin);
+        Task<Response> RegisterAsync(RegisterModel registerModel, bool admin);
     }
 }
