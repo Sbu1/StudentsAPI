@@ -7,7 +7,7 @@ The Student Attendance API is an API used for managing students attendance.
 2. [Technologies] (#technologies)
 3. [Installation] (#installation)
 4. [Collaboration] (#collaboration)
-5. [Technologies] (#genral-info)
+5. [API Flow] (#apiflow)
 
 ## General Info
 ***
@@ -41,7 +41,7 @@ To collaborate you need to send an email to sbuddaz@gmail.com stating why you ne
 ## High Level Architecture
 ![image](https://user-images.githubusercontent.com/47100836/116930109-9d8bfd80-ac5f-11eb-94b1-c940e887f36c.png)
 
-## System Flow
+## API Flow
 1.You need to create system admin using hidden end point 
   ![image](https://user-images.githubusercontent.com/47100836/116931412-3c652980-ac61-11eb-9176-b80d6eeb5886.png)
 
