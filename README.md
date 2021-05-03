@@ -62,6 +62,7 @@ NB: Please add the token in the header for all requests
 ![image](https://user-images.githubusercontent.com/47100836/116932880-1c366a00-ac63-11eb-9f6a-739e85c41b40.png)
 
 6. Create a student
+
 ![image](https://user-images.githubusercontent.com/47100836/116933345-b7c7da80-ac63-11eb-8188-96fbfda7c593.png)
 
 7.Create student attendance
