@@ -10,8 +10,6 @@ namespace StudentAttendanceAPI.Interface
     {
         Task<int> AddStudentsRegister(List<StudentRegisterModel> studentRegisterModel);
 
-        Task<int> UpdateStudentRegister(int studentRegisterId, List<StudentRegisterModel> studentRegisterModel);
-
         Task<List<StudentAttendanceReportModel>> GetReportAsync(int classId, DateTime date);
 
         Task<List<StudentAttendanceReportModel>> GetReportAsync(int classId, DateTime startdate, DateTime endDate);

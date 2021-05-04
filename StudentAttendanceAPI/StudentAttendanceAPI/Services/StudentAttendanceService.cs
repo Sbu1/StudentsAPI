@@ -68,13 +68,6 @@ namespace StudentAttendanceAPI.Services
             return attendancereport;
         }
 
-        public async Task<int> UpdateStudentRegister(int studentRegisterId, List<StudentRegisterModel> studentRegisterModel)
-        {
-            //TODO Attendanc update logic
-
-            return await Task.FromResult(0);
-        }
-
         private async Task AddStudent(StudentRegisterModel studentRegisterModel)
         {
             await _applicationDbContext.AddAsync(new TbStudentAttendance

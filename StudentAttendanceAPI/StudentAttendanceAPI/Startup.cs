@@ -77,7 +77,7 @@ namespace StudentAttendanceAPI
                 {
                     Version = "v1",
                     Title = "Student Attendance API",
-                    Description = "An API for managing students attendance"
+                    Description = "Student Attendance API exposes functionality like capturing students, capturing student attendance and pull reports"
                 });
             });
 

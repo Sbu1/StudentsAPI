@@ -1,2 +1,2 @@
-CREATE DATABASE StudenSystemtDb
+CREATE DATABASE StudentDb
 GO

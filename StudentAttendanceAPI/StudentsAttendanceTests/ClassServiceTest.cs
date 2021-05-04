@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace StudentsAttendanceTests
 {
-    public class Tests
+    public class ClassServicTests
     {
         private DbContextOptions<ApplicationDbContext> _dbContextOptions;
         protected ApplicationDbContext _dbContext;
@@ -33,10 +33,10 @@ namespace StudentsAttendanceTests
             await _dbContext.Database.EnsureCreatedAsync();
 
             _classService = new ClassService(_dbContext);
-            await SetupStudentAttendanceData();
+            await SetupClassData();
         }
 
-        private async Task SetupStudentAttendanceData()
+        private async Task SetupClassData()
         {
             using (var db = new ApplicationDbContext(_dbContextOptions))
             {
@@ -119,6 +119,7 @@ namespace StudentsAttendanceTests
             var result = await _classService.GetClassesAsync(username);
 
             Assert.Greater(result.Count(), 0);
+            Assert.IsNotNull(result);
         }
 
         [Test]
@@ -138,6 +139,26 @@ namespace StudentsAttendanceTests
 
             Assert.AreEqual(0, result.Count);
             Assert.IsNotNull(result);
+        }
+
+        [Test]
+        public async Task GetUserIdAsync_GivenValidUsername_ShouldReturnUserId()
+        {
+            var username = "User1";
+            var expected = "10000000-0000-0000-0000-000000000000";
+
+            var result = await _classService.getUserIdAsync(username);
+
+            Assert.AreEqual(expected, result);
+            Assert.IsNotNull(result);
+        }
+
+        [Test]
+        public async Task GetUserIdAsync_GivenInValidUsername_ShouldThrowException()
+        {
+            var username = "User5";
+
+            Assert.ThrowsAsync<ArgumentException>(async () => await _classService.getUserIdAsync(username));
         }
     }
 }
