@@ -1,0 +1,388 @@
+{
+	"info": {
+		"_postman_id": "5eed30ed-4a59-496f-969b-aaeed0420577",
+		"name": "studentttendance",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register Admin",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4zIiwianRpIjoiODRjMmEyNmMtMDI2ZS00MjQzLWI3N2UtZDA4MDVkN2RmZTUxIiwiZXhwIjoxNjIwMDk5OTY2LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMyMyIsImF1ZCI6IlVzZXIifQ.xGUsoYbgdPQR9Mox60AcGWQZJXyBTtIp_EkvDd51BuE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"Username\" : \"admin\",\r\n\t\"Email\" : \"admin@gmail.com\",\r\n\t\"Password\" : \"Testing123@\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44323/api/authentication/registeradmin",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44323",
+					"path": [
+						"api",
+						"authentication",
+						"registeradmin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"Username\" : \"Teacher\",\r\n\t\"Password\" : \"Testing123@\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44323/api/authentication/login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44323",
+					"path": [
+						"api",
+						"authentication",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register teacher",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4zIiwianRpIjoiODRjMmEyNmMtMDI2ZS00MjQzLWI3N2UtZDA4MDVkN2RmZTUxIiwiZXhwIjoxNjIwMDk5OTY2LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMyMyIsImF1ZCI6IlVzZXIifQ.xGUsoYbgdPQR9Mox60AcGWQZJXyBTtIp_EkvDd51BuE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"Username\" : \"teacher\",\r\n\t\"Email\" : \"teacher@gmail.com\",\r\n\t\"Password\" : \"Testing123@\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44323/api/authentication/register",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44323",
+					"path": [
+						"api",
+						"authentication",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Student",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiVGVhY2hlciIsImp0aSI6ImM0ODk1NTg3LTNlODEtNGZiZi1hNDY5LWRkNTIyYzIwNjdhYyIsImV4cCI6MTYyMDEwMDIyMiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMjMiLCJhdWQiOiJVc2VyIn0.DJGuOPmgAipAf6dmySAZO6DZF_sjyhxBHEZ_J8Orq5g",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"FirstName\" : \"test\",\r\n    \"LastName\": \"lastname\",\r\n    \"Gender\":\"Female\",\r\n    \"ParentEmail\":\"sbu@gmail.com\",\r\n    \"ParentPhoneNumber\": \"0742312005\",\r\n    \"Grade\": 7,\r\n    \"classId\" : 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44323/api/student",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44323",
+					"path": [
+						"api",
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Class",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiVGVhY2hlciIsImp0aSI6ImM0ODk1NTg3LTNlODEtNGZiZi1hNDY5LWRkNTIyYzIwNjdhYyIsImV4cCI6MTYyMDEwMDIyMiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMjMiLCJhdWQiOiJVc2VyIn0.DJGuOPmgAipAf6dmySAZO6DZF_sjyhxBHEZ_J8Orq5g",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ClassName\" : \"grade 5c\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44323/api/class",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44323",
+					"path": [
+						"api",
+						"class"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Student Attendance",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiVGVhY2hlciIsImp0aSI6ImM0ODk1NTg3LTNlODEtNGZiZi1hNDY5LWRkNTIyYzIwNjdhYyIsImV4cCI6MTYyMDEwMDIyMiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMjMiLCJhdWQiOiJVc2VyIn0.DJGuOPmgAipAf6dmySAZO6DZF_sjyhxBHEZ_J8Orq5g",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"StudentId\" : 1,\r\n        \"Present\": true,\r\n        \"ClassId\" :1\r\n    },\r\n    {\r\n        \"StudentId\" : 2,\r\n        \"Present\": false,\r\n        \"ClassId\" : 1\r\n    },\r\n    {\r\n        \"StudentId\" : 3,\r\n        \"Present\": false,\r\n        \"ClassId\": 2\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44323/api/studentattendance",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44323",
+					"path": [
+						"api",
+						"studentattendance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Classes",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiVGVhY2hlciIsImp0aSI6ImM0ODk1NTg3LTNlODEtNGZiZi1hNDY5LWRkNTIyYzIwNjdhYyIsImV4cCI6MTYyMDEwMDIyMiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMjMiLCJhdWQiOiJVc2VyIn0.DJGuOPmgAipAf6dmySAZO6DZF_sjyhxBHEZ_J8Orq5g",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ClassName\" : \"grade 7a\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44323/api/class",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44323",
+					"path": [
+						"api",
+						"class"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Daily Report",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiVGVhY2hlciIsImp0aSI6ImM0ODk1NTg3LTNlODEtNGZiZi1hNDY5LWRkNTIyYzIwNjdhYyIsImV4cCI6MTYyMDEwMDIyMiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMjMiLCJhdWQiOiJVc2VyIn0.DJGuOPmgAipAf6dmySAZO6DZF_sjyhxBHEZ_J8Orq5g",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"StudentId\" : 1,\r\n        \"Present\": true,\r\n        \"ClassId\" :1\r\n    },\r\n    {\r\n        \"StudentId\" : 2,\r\n        \"Present\": false,\r\n        \"ClassId\" : 1\r\n    },\r\n    {\r\n        \"StudentId\" : 3,\r\n        \"Present\": false,\r\n        \"ClassId\": 2\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44323/api/studentattendance/1/03-05-2021",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44323",
+					"path": [
+						"api",
+						"studentattendance",
+						"1",
+						"03-05-2021"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Term Report",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiVGVhY2hlciIsImp0aSI6ImM0ODk1NTg3LTNlODEtNGZiZi1hNDY5LWRkNTIyYzIwNjdhYyIsImV4cCI6MTYyMDEwMDIyMiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzMjMiLCJhdWQiOiJVc2VyIn0.DJGuOPmgAipAf6dmySAZO6DZF_sjyhxBHEZ_J8Orq5g",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"StudentId\" : 1,\r\n        \"Present\": true,\r\n        \"ClassId\" :1\r\n    },\r\n    {\r\n        \"StudentId\" : 2,\r\n        \"Present\": false,\r\n        \"ClassId\" : 1\r\n    },\r\n    {\r\n        \"StudentId\" : 3,\r\n        \"Present\": false,\r\n        \"ClassId\": 2\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44323/api/studentattendance/1/03-05-2021",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44323",
+					"path": [
+						"api",
+						"studentattendance",
+						"1",
+						"03-05-2021"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
