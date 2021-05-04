@@ -86,5 +86,61 @@ namespace StudentsAttendanceTests
                 await db.SaveChangesAsync();
             }
         }
+
+        [Test]
+        public async Task AddStudentAsync_GivenValidStudent_ShouldReturn1()
+        {
+            var student5 = new StudentModel
+            {
+                classId = 3,
+                FirstName = "testuser5",
+                Gender = "male",
+                Grade = 1,
+                LastName = "lastname",
+                ParentEmail = "s@g.com",
+                ParentPhoneNumber = "1234512345"
+            };
+
+            var result = await _studentService.AddStudentAsync(student5);
+
+            Assert.AreEqual(1, result);
+        }
+
+        [Test]
+        public async Task AddStudentAsync_GivenStudentWithoutClass_ShouldThrowException()
+        {
+            var student5 = new StudentModel
+            {
+                FirstName = "testuser5",
+                Gender = "male",
+                Grade = 1,
+                LastName = "lastname",
+                ParentEmail = "s@g.com",
+                ParentPhoneNumber = "1234512345"
+            };
+
+            Assert.ThrowsAsync<ArgumentException>(async () => await _studentService.AddStudentAsync(student5));
+        }
+
+        [Test]
+        public async Task GetStudentsAsync_GivenClassId_ShouldListOfStudent()
+        {
+            var classId = 1;
+
+            var result = await _studentService.GetStudentsAsync(classId);
+
+            Assert.IsNotNull(result);
+            Assert.GreaterOrEqual(result.Count, 1);
+        }
+
+        [Test]
+        public async Task GetStudentsAsync_GivenInvalidClassId_ShouldReturnEmptyList()
+        {
+            var classId = -1;
+
+            var result = await _studentService.GetStudentsAsync(classId);
+
+            Assert.AreEqual(0, result.Count);
+        }
     }
 }

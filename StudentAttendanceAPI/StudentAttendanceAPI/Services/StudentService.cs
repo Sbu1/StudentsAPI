@@ -19,6 +19,11 @@ namespace StudentAttendanceAPI.Services
         }
         public async Task<int> AddStudentAsync(StudentModel studentModel)
         {
+            var studentClass = await _dbContext.TbClass.FindAsync(studentModel.classId);
+
+            if (studentClass == null)
+                throw new ArgumentException("Invalid Class Id"); //Add exceptions middleware
+
             var student = new TbStudent
             {
                 ClassId = studentModel.classId,
@@ -29,7 +34,6 @@ namespace StudentAttendanceAPI.Services
                 ParentCellNumber = studentModel.ParentPhoneNumber,
                 ParentEmail = studentModel.ParentEmail
             };
-
 
             await _dbContext.TbStudent.AddAsync(student);
 
@@ -57,19 +61,23 @@ namespace StudentAttendanceAPI.Services
         {
             var result = await _dbContext.TbStudent.Where(x => x.ClassId == classId).ToListAsync();
             var students = new List<StudentModel>();
-            foreach (var student in result)
-            {
-                var studentModel = new StudentModel
-                {
-                    FirstName = student.FirstName,
-                    LastName = student.LastName,
-                    Gender = student.Gender,
-                    Grade = student.Grade,
-                    ParentEmail = student.ParentEmail,
-                    ParentPhoneNumber = student.ParentCellNumber
-                };
 
-                students.Add(studentModel);
+            if (result != null)
+            {
+                foreach (var student in result)
+                {
+                    var studentModel = new StudentModel
+                    {
+                        FirstName = student.FirstName,
+                        LastName = student.LastName,
+                        Gender = student.Gender,
+                        Grade = student.Grade,
+                        ParentEmail = student.ParentEmail,
+                        ParentPhoneNumber = student.ParentCellNumber
+                    };
+
+                    students.Add(studentModel);
+                }
             }
             return students;
         }

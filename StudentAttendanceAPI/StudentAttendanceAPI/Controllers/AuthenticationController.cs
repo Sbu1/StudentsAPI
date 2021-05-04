@@ -36,7 +36,7 @@ namespace StudentAttendanceAPI.Controllers
 
         [HttpPost]
         [Route("Register")]
-        [Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize(Roles = "Admin", AuthenticationSchemes = "Bearer")]
         public async Task<Response> Register([FromBody] RegisterModel registerModel)
         {
             var result = await _authService.RegisterAsync(registerModel, false);

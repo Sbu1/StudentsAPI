@@ -70,6 +70,11 @@ namespace StudentAttendanceAPI.Services
 
         private async Task AddStudent(StudentRegisterModel studentRegisterModel)
         {
+            var student = await _applicationDbContext.TbStudent.FindAsync(studentRegisterModel.StudentId);
+            if (student == null)
+                throw new ArgumentException($"Invalid student {studentRegisterModel.StudentId}");
+
+
             await _applicationDbContext.AddAsync(new TbStudentAttendance
             {
                 Attended = studentRegisterModel.Present,
