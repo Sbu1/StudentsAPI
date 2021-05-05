@@ -30,8 +30,9 @@ You need to create a database, update the connection string then run the API.
 2. Execute studentAttendanceDBscript in sql server which is in the project root folder.
 3. Open the project using visual studio.
 4. If you are using local sql server you don't need to update your connection string but if you using testing environment please change the server name in the connection string to point to your testing server.
-5. Run the project: You should see swagger UI.
-6. If you need postman collection, you can find it in the root folder of the project
+5. Open Package Manager Console: execute ADD-MIGRATION then execute UPDATE-DATABASE. These commands should create the database.
+6. Run the project: You should see swagger UI.
+7. If you need postman collection, you can find it in the root folder of the project
 
 ## Collaboration
 ***
